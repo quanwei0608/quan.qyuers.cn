@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__STATICS__/css/pintuer.css">
+<link rel="stylesheet" href="__STATICS__/css/admin.css">
+<script src="__STATICS__/js/jquery.js"></script>
+<script src="__STATICS__/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="" id="listform">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 二手房</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+    
+        <li>
+          <input type="text" value="" placeholder="请输入搜索位置关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <button  class="button border-main icon-search" id="ss"> 搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </li>
+         <li style="color:tomato;font-size:20px;font-weight:bold">
+        门店总数量：{$count}家
+        </li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="60" style="text-align:left; padding-left:20px;">ID</th>
+        <th>门店编号</th>
+        <th>门店名称</th>
+      </tr>
+      
+      <volist name="list" id="vo">
+      {foreach $selects as $val}
+        <tr>
+          <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="id[]" value="{$val.id}" />{$val.id}</td>
+          <td>{$val.company_id}</td>
+          <td>{$val.company_name}</td>
+          <td>
+
+            <div class="button-group"> 
+              <a class="button border-main" href="__SITE__/leader/house/updataexchange"><span class="icon-edit"></span> 修改</a>
+               
+              <a class="button border-red" href="javascript:void(0)" onclick="return del('{$val.id}')"><span class="icon-trash-o"></span>删除</a> 
+           
+              
+          
+             
+            </div>
+          </td>
+        </tr>
+      {/foreach}
+
+      <tr>
+        <td style="text-align:left; padding:19px 0;padding-left:20px;"><input type="checkbox" id="checkall"/>
+          全选 </td>
+        <td colspan="7" style="text-align:left;padding-left:20px;"><a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()"> 删除</a> <a href="javascript:void(0)" style="padding:5px 15px; margin:0 10px;" class="button border-blue icon-edit" onclick="sorts()"> 排序</a> 
+      </tr>
+ 
+   
+    </table>
+<tr> <!-- 此处遍历所有的分页 -->
+ 
+  </div>
+</form>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add">
+  <strong><span class="icon-pencil-square-o"></span>增加新门店</strong>
+  </div>
+  <div class="body-content">
+    <!-- <form method="post" class="form-x" action="">    -->
+      <input type="hidden" name="id"  value="" />  
+     
+   <table class="table table-hover text-center">
+    <tr>   
+      <th>门店编号</th>  
+      <th>门店名称</th>     
+      <th width="250">操作</th>
+    </tr>
+   <tr class="sss">      
+      <td><input type="text" value="" name="company_id"></td>
+      <td><input type="text"  value="" name="company_name"></td>      
+      <td>
+      <div class="button-group">
+        <a type="button" class="button border-green btn-edit" id="btns" href="javascript:void(0)" ><span class="icon-edit" id="btns"></span>增加</a>
+      </div>
+      </td>
+    </tr>  
+  </table>
+  </div>
+    <!-- </form> -->
+  </div>
+</div>
+<script type="text/javascript">
+$("#btns").click(function(){
+  var x = confirm("您确定要增加吗");
+  if(x == false ){
+    return false;
+  }else{
+    var company_id;
+    var company_name;
+     company_id = $(".sss").find('input[name=company_id]').val();
+     company_name = $(".sss").find('input[name=company_name]').val();
+    
+     $.post('__SITE__/leader/company/upCompany',{company_id:company_id,company_name:company_name},function(data){
+                if(data.status) {
+                  alert(data.msg);
+                 // $(this).parents("td").remove();
+                 window.location.href = "__SITE__/leader/company/company";
+                  return true;
+                }else{
+                  alert(data.msg);
+                  return false;
+                }
+              },'json')
+  }
+});
+</script>
+<script>
+//单个删除
+  function del(id) {
+        var t = confirm("您确定要删除吗");
+            if (t == false){
+                return false;
+            }else{
+              $.post('__SITE__/leader/company/delCompany',{id:id},function(data){
+                if(data.status) {
+                  alert(data.msg);
+                 $(this).parents("td").remove();
+                 window.location.href = "__SITE__/leader/company/company";
+                  return true;
+                }else{
+                  alert(data.msg);
+                  return false;
+                }
+              },'json')
+            }
+    }
+
+//全选
+$("#checkall").click(function(){ 
+  $("input[name='id[]']").each(function(){
+    if (this.checked) {
+      this.checked = false;
+    }
+    else {
+      this.checked = true;
+    }
+  });
+})
+
+//批量删除
+function DelSelect(){
+  var Checkbox=false;
+   $("input[name='id[]']").each(function(){
+    if (this.checked==true) {   
+    Checkbox=true;  
+    }
+  });
+  if (Checkbox){
+    var t=confirm("您确认要删除选中的内容吗？");
+    if (t==false) return false;   
+    $("#listform").submit();    
+  }
+  else{
+    alert("请选择您要删除的内容!");
+    return false;
+  }
+}
+
+//批量排序
+function sorts(){
+  var Checkbox=false;
+   $("input[name='id[]']").each(function(){
+    if (this.checked==true) {   
+    Checkbox=true;  
+    }
+  });
+  if (Checkbox){  
+    
+    $("#listform").submit();    
+  }
+  else{
+    alert("请选择要操作的内容!");
+    return false;
+  }
+}
+
+</script>
+</body>
+</html>

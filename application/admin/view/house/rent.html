@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+  <link rel="stylesheet" href="__STATIC__/css/admin.css">
+  <script src="__STATIC__/js/jquery.js"></script>
+  <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 二手房</strong></div>
+   
+    <table style="" class="table table-hover text-center">
+      <tr>
+        <th width="5%">ID</th>
+        <th width="5%">编号</th>
+        <th width="10%">户型</th>
+        <th width="5%">面积</th>
+        <th width="5%">楼层</th>
+        <th width="10%">价格</th>
+        <th width="5%">朝向</th>
+        <th width="9%">年份</th> 
+        <th width="8%">区域</th>
+        <th width="8%">位置</th>
+        <th width="5%">装修</th>
+        <th width="10%">房源描述</th>
+      </tr>
+      <!-- 遍历所有房源信息可以进行描述 -->
+       {foreach $result as $val}
+      <tr>
+        <td>{$val.id}</td> 
+        <td>{$val.r_number}</td>     
+        <td>{$val.r_type}</td>     
+        <td style="color:blue">{$val.r_area}平米</td>
+        <td>{$val.r_floor}</td>
+        <td style="color:tomato">{$val.r_price}元/月</td>
+        <td>{$val.r_orientation}</td>
+        <td>{$val.r_year}年</td>
+        <td>{$val.r_f_location}</td>
+        <td>{$val.r_s_location}</td>
+        <td>{$val.r_fitment}</td>
+        <td></td>
+
+        <td><div class="button-group">
+          <a class="button border-main" href="__SITE__/admin/Description/rdescription?id={$val.r_number}"><span class="icon-edit"></span>描述</a>
+        </td>
+      </tr> 
+       {/foreach}
+    </table>
+  </div>
+  <!-- 此处遍历所有的分页 -->
+  <div style="margin-top:10px;">
+    <ul style="padding-left:500px">
+      {volist name='result' id='user'}
+      {/volist}
+    </ul>
+  </div>
+  {$result->render()}
+
+
+  <div class="panel admin-panel margin-top" id="add">
+    <div class="panel-head"><strong> </strong></div>
+    
+  </div>
+</body></html>

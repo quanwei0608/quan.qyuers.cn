@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>  
+                <META http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <META http-equiv="Content-Language" content="zh-cn" />
+                
+                                            <link rel="stylesheet" type="text/css" href="__STATIC__/css/jquery-ui-1.8.23.custom.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/hz-css.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/detail.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/entrust.css" />
+<script type="text/javascript" src="__STATIC__/js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/jquery.yiiactiveform.js"></script>
+<TITLE>我要预约_北京我爱我家官网</TITLE>
+                            <META name="description" content="我要买房页面为您提供在北京买房的入口，为每一位要在北京购买房子的客户提供100%真实房源和真诚服务。要买房就上北京我爱我家官网。" />
+                            <META name="keywords" content="我要买房，我要买房子" />
+                                                            <META NAME="robots" CONTENT="All" />
+                <link rel="Shortcut Icon" type="image/x-icon"  href="/favicon.ico" />
+                                                        
+</HEAD>
+<body>
+
+<header class="welcome">
+    <div class="main">
+        <p class="welcome-text">
+            <span class="fl collect">我爱我家客服热线：4008-515-515  <a href="javascript:void(0);" id ="shoucang">加入收藏</a></span>
+            <span class="fr">
+                {if empty(session('user')['username'])}
+                <a href="__SITE__/index/user/login" onmousedown= "_gaq.push(['_trackEvent', '用户登录', '登陆', '登陆']);">登录</a>  │  
+                <a href="__SITE__/index/user/register" onmousedown= "_gaq.push(['_trackEvent', '用户注册', '注册', '注册']);">注册</a>
+                {else}
+                <a href="__SITE__/index/user/set">{:session('user')['username']}</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="__SITE__/index/user/outLogin" target="_blank">退出</a>
+                {/if}
+           </span>
+        </p>
+    </div>
+</header>
+<nav class="w-full">
+    <div class="main new-foat">
+        <div class="detail-logo"><a href="/"><img src="__STATIC__/picture/logo-blue.png" width="181" height="55" /></a></div>
+        <a class="detail-city" href="javascript:void(0);" id="city"><span>北京<img src="__STATIC__/picture/arrow-down.png" width="7" height="4" /></span></a>
+        <ul class="detail-nav">
+            <li><a href="__SITE__/index/index/index">首页</a></li>
+            <li ><a href="__SITE__/index/house/exchange" target="_blank">二手房</a></li>
+            <li ><a href="__SITE__/index/house/hire" target="_blank">租房</a></li>
+	        <!--<li><a href="/school/" target="_blank">学区房</li>
+            <li><a href="/school/" target="_blank">学区</li>-->	
+            <!--<li class="current" ><a href="/loupan" target="_blank">新房</a></li>
+            <li><a href="http://.newhouse.5i5j.com" target="_blank">新房</a></li>
+            <li><a href="/newHouse" target="_blank">新房</a></li> -->
+            <li ><a href="__SITE__/index/house/community" target="_blank">小区</a></li>
+            <li ><a href="/map" target="_blank">地图</a></li>
+            <li ><a href="__SITE__/index/broker/broker" target="_blank">经纪人</a></li>
+         </ul>
+        <!--更多城市 Start-->
+        <div class="city-more list-postion" style="display:none;" id="cityMore">
+	    <ul class="city-more-l">
+	        <li>华&nbsp;&nbsp;&nbsp;&nbsp;北</li>
+	        <li>华&nbsp;&nbsp;&nbsp;&nbsp;东</li>
+	        <li>中西南</li>
+	        <li>海&nbsp;&nbsp;&nbsp;&nbsp;外</li>
+	    </ul>
+	    <ul class="city-more-r">
+	        <li>
+	            <a href="http://bj.5i5j.com" target="_blank">北京</a>
+	            <a href="http://tj.5i5j.com" target="_blank">天津</a>
+	            <a href="http://ty.5i5j.com" target="_blank">太原</a>
+	        </li>
+	        <li>
+	            <a href="http://sh.5i5j.com" target="_blank">上海</a>
+	            <a href="http://nj.5i5j.com" target="_blank">南京</a>
+	            <a href="http://hz.5i5j.com" target="_blank">杭州</a>
+	            <a href="http://sz.5i5j.com" target="_blank">苏州</a>
+	            <a href="http://nc.5i5j.com" target="_blank">南昌</a>
+	        </li>
+	        <li>
+	            <a href="http://cd.5i5j.com" target="_blank">成都</a>
+	            <a href="http://cs.5i5j.com" target="_blank">长沙</a>
+	            <a href="http://wh.5i5j.com" target="_blank">武汉</a>
+	            <a href="http://nn.5i5j.com" target="_blank">南宁</a>
+	        </li>
+	        <li><a href="http://www.haiwaiyoujia.com/index.php" target="_blank">海外地产</a></li>
+	    </ul>
+	</div>
+        <!--更多城市 End-->
+    </div>
+</nav><section class="w-full path">
+	<div class="main">
+		<span class="path-icon"></span><a href="/" target="_blank">北京首页</a> > 
+		<a href="/entrust/index" target="_blank">预约</a> > 
+		<span style="color: #000;">我要预约</span>	</div>
+</section>
+
+<!--我要出租表单 start-->
+<!-- <form id="BuyEntrustForm" action="" method="post" onsubmit = "return check_all()"> -->
+<section class="w-full" style="z-index: 1;" > 
+  	<div class="submit-main">
+
+   	<h1><span class="submit-icon2"></span>联系方式</h1>
+	<ul class="submit-table">
+		<li>
+			<span style="width:150px; padding-left:26px;">预约时间</span>
+			<select  id="earlyTime" name="earlyTime"style="width:60px;" >
+                <option value="9">9时</option>
+                <option value="10">10时</option>
+                <option value="11">11时</option>
+                <option value="12">12时</option>
+                <option value="13">13时</option>
+                <option value="14">14时</option>
+                <option value="15">15时</option>
+                <option value="16">16时</option>
+                <option value="17">17时</option>
+                <option value="18">18时</option>
+            </select>
+            至			
+            <select id="lateTime" name="lateTime" style="width:60px;">
+                <option value="9">9时</option>
+                <option value="10">10时</option>
+                <option value="11">11时</option>
+                <option value="12">12时</option>
+                <option value="13">13时</option>
+                <option value="14">14时</option>
+                <option value="15">15时</option>
+                <option value="16">16时</option>
+                <option value="17">17时</option>
+                <option value="18">18时</option>
+            </select>
+            <em><div></div></em>
+        </li>
+		<li>
+			<span class="contact"><b>*</b>联系人</span>
+			<input size="32" name="person" id="person" type="text" maxlength="4"/>			
+			<em><div></div></em>
+		</li>
+		<li>
+			<span class="contact"><b>*</b>手机号</span>
+			<input size="60" name="phone" id="phone" type="text" />	
+			<em><div></div></em>
+		</li>
+		<input type="hidden" name="hidden" id="hidden" value="{$id}" />
+		<!-- <li>
+			<span style="width:150px;"><b>*</b>验证码</span>
+			<input size="20" name="verify" id="BuyEntrust_firstprice" type="text" />
+			<em><div></div></em>
+		</li> -->
+	</ul>
+	</div>
+	<div class="main tc">
+		<button class="entrust-btn" type="submit" id="btn">
+			提&nbsp;&nbsp;交
+		</button>
+	</div>
+</section>
+<!--</form> 我要出租表单 end -->
+<script type="text/javascript">
+
+$(function(){
+	$.ajax({async: false});
+	$('#btn').click(function () {
+		if (check_per() && check_pho() && check_time()) {
+			$.post('__SITE__/index/user/doReserve',{earlyTime:$("#earlyTime").val(),lateTime:$("#lateTime").val(),person:$("#person").val(),phone:$("#phone").val(),hidden:$("#hidden").val()},function(data){
+				if (data.status) {
+                alert('提交成功');
+                location.href = '__SITE__/index/house/exchange';
+            } else {
+                alert(data.msg);
+            }
+			},'json');
+			}else{
+                return false;
+		}
+	});
+	//验证时间
+	function check_time(){
+		if ($('#lateTime').val() <= $('#earlyTime').val()) {
+			$('#lateTime').next().html('<font color="red">后面时间不能小于或者等于前面时间</font>');
+			return false;
+		}else{
+			$('#lateTime').next().html('');
+            return true;
+        }
+	}
+
+	$('#lateTime').blur(function() {
+            check_time();
+    });
+	//验证联系人
+	function check_per(){
+		if ($('#person').val() == '') {
+			$('#person').next().html('<font color="red">联系人不能为空</font>');
+			return false;
+		}else{
+			$('#person').next().html('');
+           	return true;
+        }
+	}
+
+	$('#person').blur(function() {
+            check_per();
+    });
+    //验证手机号
+	function check_pho(){
+        var reg = /^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/;
+        if (reg.test($("#phone").val())){
+        	$("#phone").next().html('');
+            return true;
+        }else{
+             $("#phone").next().html('<font color="red">输入正确手机号</font>');
+            return false;
+        }
+    }
+	$('#phone').blur(function() {
+            check_pho();
+    });
+    
+    function check_all(){
+    	if (check_per() && check_pho()) {
+    		return true;
+    	}
+    } 
+});
+</script>
+<!--底部共用部分 start-->
+<footer class="foot-info">
+	<div class="main">
+    	<div class="foot-info-l">
+		<p class="mr-tb"><img src="__STATIC__/picture/logo-white.png" width="178" height="55" /></p>
+		<p>集团依托旗下 的伟业顾问、我爱我家等业务品牌，提供全程化、专业化、集成化的优质综合服务。</p>
+        </div>
+    	<div class="foot-info-l foot-info-c">
+        	<p style="margin:15px 0;"><img src="__STATIC__/picture/tel-400.png" width="215" height="42" /></p>
+		<p>地址：东城区东四十条南新仓商务大厦A903<br/>邮编：100007<br/>传真：59808800</p>
+		<ul class="public">
+	            	<li class="qq-icon"><a href="javascript:void(0);"></a></li>
+	            	<li class="wx-icon"><a href="javascript:void(0);"></a></li>
+	            	<li class="wb-icon"><a href="javascript:void(0);"></a></li>
+	            	<li class="tx-icon"><a href="javascript:void(0);"></a></li>
+		</ul>
+	</div>
+    	<div class="foot-info-r">
+		<!--<p class="qykf-top"><img src="" width="177" height="153" /></p>-->
+        </div>
+	</div>
+</footer>
+<section class="copyright">
+	<div class="main">
+    	<div>
+    		<a href="/site/aboutUs" rel="nofollow" target="_blank">关于我们</a>  丨  
+    		<a href="#" rel="nofollow" target="_blank">经纪人登陆</a>  丨  
+    		<a href="/site/aboutUs/type/service" rel="nofollow" target="_blank">客户服务</a>  丨  
+    		<a href="/site/aboutUs/type/contact" rel="nofollow" target="_blank">联系我们</a>  丨  
+    		<!--<a href="http://bj.5i5j.com/zhaopin/index" rel="nofollow" target="_blank">诚聘英才</a>  丨  -->
+    		<a href="http://www.bacic5i5j.com/culture/electronicpress" rel="nofollow" target="_blank">电子杂志</a>  丨  
+    		<a href="http://www.bacic5i5j.com/contactus/index?company=5i5j" rel="nofollow" target="_blank">客户投诉</a>  丨  
+    		<a href="/sitemap" rel="nofollow" target="_blank">站点地图</a>  丨  
+    		<a href="/site/aboutUs/type/memorabilia" rel="nofollow" target="_blank">网站记事</a>
+    	</div>
+        <p>北京我爱我家房地产经纪有限公司 版权所有 | 网络经营许可证 京ICP备11021901号-16</p><p>©2016 5i5j.com, all rights reserved. </p>	</div>
+</section><script type="text/javascript" src="__STATIC__/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/public.js"></script>
+<script type="text/javascript" src="__STATIC__/js/jquery.md5.js"></script>
+<script type="text/javascript" src="__STATIC__/js/statistics.js"></script>
+
+</body>
+</html>

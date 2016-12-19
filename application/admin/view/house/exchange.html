@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+  <link rel="stylesheet" href="__STATIC__/css/admin.css">
+  <script src="__STATIC__/js/jquery.js"></script>
+  <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 二手房</strong></div>
+   
+    <table style="" class="table table-hover text-center">
+      <tr>
+       <th width="5%">ID</th>
+        <th width="5%">编号</th>
+        <th width="10%">户型</th>
+        <th width="5%">面积</th>
+        <th width="5%">楼层</th>
+        <th width="10%">总价</th>
+        <th width="10%">单价</th>
+        <th width="5%">朝向</th>
+        <th width="5%">区域</th>
+        <th width="5%">位置</th>
+        <th width="10%">年份</th> 
+        <th width="10%">房源描述</th> 
+        
+      </tr>
+      <!-- 遍历所有房源信息可以进行描述 -->
+       {foreach $select as $val}
+      <tr>
+        <td>{$val.id}</td>
+        <td>{$val.e_number}</td>     
+        <td>{$val.e_type}</td>     
+        <td style="color:#931494">{$val.e_area}平米</td>
+        <td>{$val.e_floor}</td>
+        <td style="color:red">{$val.e_price}万</td>
+        <td style="color:green">{$val.e_unit}元/平</td>
+        <td>{$val.e_orientation}</td>
+        <td>{$val.e_f_location}</td>
+        <td>{$val.e_s_location}</td>
+        <td>{$val.e_year}年</td>
+        <td>{$val.house_description}</td>
+        <!-- //判断是修改还是描述 -->
+        {if empty($val.house_description)}
+        <td><div class="button-group">
+          <a class="button border-main" href="__SITE__/admin/Description/edescription?id={$val.house_id}"><span class="icon-edit"></span>描述</a>
+        </td>
+        {else}
+        <td>
+        <a class="button border-red" href="__SITE__/admin/Description/edescriptionx?id={$val.house_id}"><span class="icon-trash-o"></span>修改</a> </div></td>
+       {/if}
+      </tr> 
+       {/foreach}
+    </table>
+  </div>
+
+  <!-- 此处遍历所有的分页 -->
+  <div style="margin-top:10px;">
+    <ul style="padding-left:500px">
+      {volist name='select' id='user'}
+      {/volist}
+    </ul>
+  </div>
+  {$select->render()}
+
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add">
+  <strong><span class="icon-pencil-square-o"></span>增加描述</strong>
+  </div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="__SITE__/admin/house/addExchan">   
+      <input type="hidden" name="id"  value="" />  
+     
+   <table class="table table-hover text-center">
+    <tr>   
+      <th>经纪人编号</th>  
+      <th>房子编号</th> 
+      <th>描述</th>      
+      <th width="250">操作</th>
+    </tr>
+   <tr class="sss">      
+      <td><input type="text" value="{:session('user')['number']}" name="d_broker_id"></td>
+      <td><input type="text"  value="{$selects['e_number']}" name="house_id"></td> 
+      <td><textarea type="text" class="input" name="house_description" style="height:120px;" value=""></textarea></td> 
+          
+      <td>
+      <div class="button-group">
+        <button type="submit" class="button border-green btn-edit" id="btns" ><span class="icon-edit" id="btns"></span>增加</button>
+      </div>
+      </td> 
+    </tr>  
+  </table>
+  </div>
+    </form>
+  </div>
+</div>
+  <div class="panel admin-panel margin-top" id="add">
+    <div class="panel-head"><strong> </strong></div>
+    
+  </div>
+</body></html>

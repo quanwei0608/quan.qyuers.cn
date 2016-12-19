@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__STATICS__/css/pintuer.css">
+<link rel="stylesheet" href="__STATICS__/css/admin.css">
+<script src="__STATICS__/js/jquery.js"></script>
+<script src="__STATICS__/js/pintuer.js"></script>
+</head>
+<body>
+<form method="post" action="" id="listform">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+    <div class="padding border-bottom">
+      
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="100" style="text-align:left; padding-left:20px;">ID</th>
+
+        <!-- <th>小区图片</th> -->
+        <th>大区域</th>
+        <th>小区域</th>
+        <th>小区编号</th>
+        <th>小区名字</th>
+        <th>小区年代</th>
+        <th>小区单价</th>
+        <th>操作</th>
+      </tr>
+      <volist name="list" id="vo">
+      {foreach $selectc as $val}
+        <tr>
+          <td style="text-align:left; padding-left:20px;"><input type="checkbox" name="id[]" value="{$val.id}" />{$val.id}</td>
+         <!--  <td width="10%"><img src="" alt="" width="70" height="50" /></td> -->
+          <td>{$val.community_f_loc}</td>
+          <td><font color="#00CC99">{$val.community_s_loc}</font></td>
+           <td>{$val.community_id}</td>
+          <td>{$val.community_name}</td>
+           <td>{$val.community_year}年</td>
+          <td>{$val.community_unit}/平</td>
+          <td><div class="button-group"> <a class="button border-main" href="add.html"><span class="icon-edit"></span> 修改</a> <a class="button border-red" href="javascript:void(0)" onclick="return del('{$val.id}')"><span class="icon-trash-o"></span> 删除</a> </div></td>
+        </tr>
+   		 {/foreach}
+       
+      <tr>
+        <td style="text-align:left; padding:19px 0;padding-left:20px;"><input type="checkbox" id="checkall"/>
+          全选 </td>
+        <td colspan="7" style="text-align:left;padding-left:20px;"><a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()"> 删除</a> <a href="javascript:void(0)" style="padding:5px 15px; margin:0 10px;" class="button border-blue icon-edit" onclick="sorts()"> 排序</a>
+     
+      <!-- <tr>
+        <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
+      </tr> -->
+    </table>
+    <tr> <!-- 此处遍历所有的分页 -->
+  <div style="margin-top:10px;">
+    <ul style="padding-left:500px">
+      {volist name='selectc' id='user'}
+      {/volist}
+    </ul>
+  </div>
+  {$selectc->render()}</tr>
+  </div>
+</form>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add">
+  <strong><span class="icon-pencil-square-o"></span>增加新链接</strong>
+  </div>
+  <div class="body-content">
+    <form method="post" class="form-x" enctype="multipart/form-data" action="__SITE__/leader/community/upCommunity">   
+      <!-- <input type="hidden" name="id"  value="" />   -->
+     
+   <table class="table table-hover text-center">
+    <tr>
+        <th>大区域</th>
+        <th>小区域</th>
+        <th>小区编号</th>
+        <th>小区名字</th>
+        <th>小区年代</th>
+        <th>小区单价</th>
+        <th>上传图片</th>
+        <th>操作</th>
+    </tr>
+   <tr class="sss">
+
+      <td><input style="width:80px;" type="text"  value="" name="community_f_loc"></td>  
+      <td><input style="width:80px;" type="text" value="" name="community_s_loc"></td>
+      <td><input style="width:80px;" type="text"  value="" name="community_id"></td>
+      <td><input style="width:80px;" type="text"  value="" name="community_name"></td>  
+      <td><input style="width:80px;" type="text" value="" name="community_year"></td>
+      <td><input style="width:80px;" type="text"  value="" name="community_unit"></td>
+      <th><input style="width:80px;" type="file" name="picture" /></th>      
+      <td>
+      <div class="button-group">
+        <button class="button border-green btn-edit" id="btns" ><span class="icon-edit" id="btns"></span>增加</button>
+      </div>
+      </td>
+    </tr>  
+  </table>
+  </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+
+//搜索
+function changesearch(){	
+		
+}
+
+//单个删除
+function del(id){
+	 var t = confirm("您确定要删除吗");
+            if (t == false){
+                return false;
+            }else{
+              $.post('__SITE__/leader/community/del',{id:id},function(data){
+                if(data.status) {
+                  alert(data.msg);
+                 $(this).parents("td").remove();
+                 window.location.href = "__SITE__/leader/community/community";
+                  return true;
+                }else{
+                  alert(data.msg);
+                  return false;
+                }
+              },'json')
+            }
+}
+
+//全选
+$("#checkall").click(function(){ 
+  $("input[name='id[]']").each(function(){
+	  if (this.checked) {
+		  this.checked = false;
+	  }
+	  else {
+		  this.checked = true;
+	  }
+  });
+})
+
+//批量删除
+function DelSelect(){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){
+		var t=confirm("您确认要删除选中的内容吗？");
+		if (t==false) return false;		
+		$("#listform").submit();		
+	}
+	else{
+		alert("请选择您要删除的内容!");
+		return false;
+	}
+}
+
+//批量排序
+function sorts(){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){	
+		
+		$("#listform").submit();		
+	}
+	else{
+		alert("请选择要操作的内容!");
+		return false;
+	}
+}
+
+
+//批量首页显示
+function changeishome(o){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){
+		
+		$("#listform").submit();	
+	}
+	else{
+		alert("请选择要操作的内容!");		
+	
+		return false;
+	}
+}
+
+//批量推荐
+function changeisvouch(o){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){
+		
+		
+		$("#listform").submit();	
+	}
+	else{
+		alert("请选择要操作的内容!");	
+		
+		return false;
+	}
+}
+
+//批量置顶
+function changeistop(o){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){		
+		
+		$("#listform").submit();	
+	}
+	else{
+		alert("请选择要操作的内容!");		
+	
+		return false;
+	}
+}
+
+
+//批量移动
+function changecate(o){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){		
+		
+		$("#listform").submit();		
+	}
+	else{
+		alert("请选择要操作的内容!");
+		
+		return false;
+	}
+}
+
+//批量复制
+function changecopy(o){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){	
+		var i = 0;
+	    $("input[name='id[]']").each(function(){
+	  		if (this.checked==true) {
+				i++;
+			}		
+	    });
+		if(i>1){ 
+	    	alert("只能选择一条信息!");
+			$(o).find("option:first").prop("selected","selected");
+		}else{
+		
+			$("#listform").submit();		
+		}	
+	}
+	else{
+		alert("请选择要复制的内容!");
+		$(o).find("option:first").prop("selected","selected");
+		return false;
+	}
+}
+
+</script>
+</body>
+</html>

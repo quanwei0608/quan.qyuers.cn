@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="__STATICS__/css/pintuer.css">
+  <link rel="stylesheet" href="__STATICS__/css/admin.css">
+  <!-- <script src="__STATICS__/js/jquery.js"></script> -->
+  <script type="text/javascript" src="__STATICS__/js/jquery-1.11.3.js"></script>
+  <!-- <script src="__STATICS__/js/pintuer.js"></script> -->
+  <script type="text/javascript">
+      $(function(){
+       
+        //检测密码
+         function checkNew(){
+          var reg = /\w{6,18}/;
+          if (reg.test($("#newpass").val())){
+            $("#newpass").next().html('<font color="green">密码正确</font>');
+            return true;
+          }else{
+             $("#newpass").next().html('<font color="red">新密码不能小于六位</font>');
+            return false;
+          }
+        }
+        //新密码
+         function checkRenew(){
+          var reg = /\w{6,18}/;
+          if (reg.test($("#renewpass").val())){
+            $("#renewpass").next().html('<font color="green">验证成功</font>');
+            return true;
+          }else{
+             $("#renewpass").next().html('<font color="red">两次密码输入不一致</font>');
+            return false;
+          }
+        }
+        //失去焦点ajax和后来进行匹配
+        $("#mpass").blur(function() {
+            
+          $.post('__SITE__/leader/admin/yz',{password:$("#mpass").val()},function(data){
+            if (data.status) {
+              $("#mpass").next().html('<font color="green">密码匹配成功</font>');
+              return true;
+            }else{
+             $("#mpass").next().html('<font color="red">请输入正确密码</font>');
+             return false;
+           }
+         },'json');
+        
+        });
+        $("#newpass").blur(function() {
+            checkNew();
+        });
+         $("#renewpass").blur(function() {
+            checkRenew();
+        });
+         //点击按钮通过ajax请求数据
+         $.ajax({async: false});
+         $("#btn").click(function(){
+            if(checkNew() && checkRenew()){
+              $.post('__SITE__/leader/admin/doPass',{password:$("#mpass").val(),renewpass:$("#renewpass").val()},function(data){
+              if (data.status) {
+                alert('修改成功');
+                location.href = '__SITE__/leader/admin/pass';
+              } else {
+                alert(data.msg);
+              }
+            },'json');
+            }else{
+              return false;
+            }
+         });
+         // $("#btn").click(function(){
+         //  $.ajax({
+         //    type:'post',
+         //    url: '__SITE__/admin/admin/doPass',
+         //    datatype: 'json',
+         //    data: {
+         //      password:$("#mpass").val(),
+         //      renewpass:$("#renewpass").val()
+         //    },
+         //    success:function(data){
+         //      console.log(data);
+         //    }
+         //  });
+         // });
+      });
+  </script>
+</head>
+<body>
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 修改密码</strong></div>
+    <div class="body-content">
+    <form method="post" class="form-x" action="__SITE__/leader/admin/doPass" onsubmit="return false">
+        <div class="form-group">
+          <div class="label">
+            <label for="sitename">当前登录用户：</label>
+          </div>
+          <div class="field">
+            <label style="line-height:33px;">
+             {:session('user')['username']}
+          
+           </label>
+         </div>
+       </div>      
+       <div class="form-group">
+        <div class="label">
+          <label for="sitename">原始密码：</label>
+        </div>
+        <div class="field">
+          <input type="password" class="input w50" id="mpass" name="password" size="50" placeholder="请输入原始密码" data-validate="required:请输入原始密码" />&nbsp;&nbsp;&nbsp;&nbsp;<span style="display:block; float:left; width:150px; margin-top:10px; margin-left:10px;"></span>       
+        </div>
+      </div>      
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">新密码：</label>
+        </div>
+        <div class="field">
+          <input type="password" class="input w50" name="newpass" id="newpass" size="50" placeholder="请输入新密码" data-validate="required:请输入新密码,length#>=5:新密码不能小于5位" />&nbsp;&nbsp;&nbsp;&nbsp;<span style="display:block; float:left; width:150px; margin-top:10px; margin-left:10px;"></span>         
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">确认新密码：</label>
+        </div>
+        <div class="field">
+          <input type="password" class="input w50" id="renewpass" name="renewpass" size="50" placeholder="请再次输入新密码" data-validate="required:请再次输入新密码,repeat#newpass:两次输入的密码不一致" />    &nbsp;&nbsp;&nbsp;&nbsp;<span style="display:block; float:left; width:150px; margin-top:10px; margin-left:10px;"></span>      
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit" id="btn"> 提交</button>   
+        </div>
+      </div>      
+    </form>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>网站信息</title>  
+    <link rel="stylesheet" href="__STATICS__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATICS__/css/admin.css">
+    <script src="__STATICS__/js/jquery.js"></script>
+    <script src="__STATICS__/js/pintuer.js"></script>  
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 网站信息</strong></div>
+  <div class="body-content">
+    <form method="post" enctype="multipart/form-data" class="form-x" action="__SITE__/leader/siteinfo/updateInfo">
+    {foreach $select as $val}
+      <div class="form-group">
+        <div class="label">
+          <label>网站标题：</label>
+        </div>
+        <div class="field">
+          <input style="color:green" type="text" class="input" name="s_title" value="{$val.s_title}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>网站LOGO：</label>
+        </div>
+        <div class="field">
+          <img name="s_logo" class="input tips" style="width:230px;height:70px; float:left;" src="{$val.s_logo}"/>
+         <input type="file" name="image" /> <br>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>网站域名：</label>
+        </div>
+        <div class="field">
+          <input  type="text" class="input" name="s_domain" value="{$val.s_domain}" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>网站关键字：</label>
+        </div>
+        <div class="field">
+          <textarea style="color:red" class="input"  name="s_keywords" style="height:80px">{$val.s_keyword}</textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>网站描述：</label>
+        </div>
+        <div class="field">
+          <textarea class="input"  name="s_describe">{$val.s_describe}</textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>联系人：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="s_name" value="{$val.s_name}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>手机：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input" name="s_phone" value="{$val.s_phone}" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>底部信息：</label>
+        </div>
+        <div class="field">
+          <textarea name="s_bottom" value="{$val.s_bottom}" class="input" style="height:120px;"></textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>站点关闭：</label>
+        </div>
+        <div class="field">
+          <input type="radio" name="s_type" value="1">是
+          <input type="radio" name="s_type" value="0">否
+          <div class="tips"></div>
+        </div>
+      </div>
+      {/foreach}
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body></html>

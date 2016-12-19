@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>  
+    <link rel="stylesheet" href="__STATICS__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATICS__/css/admin.css">
+    <script src="__STATICS__/js/jquery.js"></script>
+    <script src="__STATICS__/js/pintuer.js"></script>  
+</head>
+<body>
+<form method="post" action="">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 留言管理</strong></div>
+    <div class="padding border-bottom">
+      <ul class="search">
+        <li>
+          <button type="button"  class="button border-green"  id="checkall"><span class="icon-check"></span> 全选</button>
+          <button type="submit" onclick="DelSelect()" class="button border-red" ><span class="icon-trash-o"></span> 批量删除</button>
+        </li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="120">ID</th>
+        <th>联系人</th>       
+        <th>电话</th>
+        <!-- <th>邮箱</th> -->
+        <th>其他</th>
+        <th width="25%">内容</th>
+         <th width="120">预约时间</th>
+        <th>操作</th>       
+      </tr>   
+      {foreach $result as $val}   
+        <tr>
+          <td><input type="checkbox" id="checkbox" name="id[]" value="{$val.id}" />{$val.id}</td>
+          <td>{$val.username}</td>
+          <td>{$val.phone}</td>
+          <!-- <td>564379992@qq.com</td>   -->
+           <td>深圳市民治街道</td>         
+          <td>这是一套后台UI，喜欢的朋友请多多支持谢谢。</td>
+          <td>{$val.reserve_time}</td>
+          <td><div class="button-group"> <a class="button border-red" href="javascript:void(0)" onclick="return del('{$val.id}')"><span class="icon-trash-o"></span> 删除</a> </div></td>
+        </tr>
+      {/foreach}
+      <tr>
+        <td colspan="8">
+        <!-- 此处遍历所有的分页 -->
+          <div >
+            <ul >
+            {volist name='result' id='user'}
+            {/volist}
+            </ul>
+          </div>
+          {$result->render()}
+        </td>
+      </tr>
+      
+
+</form>
+<script type="text/javascript">
+
+    function del(id) {
+        var t = confirm("您确定要删除吗");
+            if (t == false){
+                return false;
+            }else{
+              $.post('__SITE__/leader/admin/del',{id:id},function(data){
+                if(data.status) {
+                  alert(data.msg);
+                 $(this).parents("td").remove();
+                 window.location.href = "__SITE__/leader/admin/reserve";
+                  return true;
+                }else{
+                  alert(data.msg);
+                  return false;
+                }
+              },'json')
+            }
+    }
+
+   $("#checkall").click(function () {
+        $("input[name='id[]']").each(function () {
+            if (this.checked) {
+                this.checked = false;
+            }
+            else {
+                this.checked = true;
+            }
+        });
+    })
+
+    function DelSelect() {
+        var Checkbox = false;
+        var id = '';
+        $("input[name='id[]']").each(function () {
+            if (this.checked == true) {
+                id = id+this.value+',';
+                Checkbox = true;
+            } 
+        });
+        id=id.substring(id.length-1,',');
+        if (Checkbox) {
+            var t = confirm("您确认要删除选中的内容吗？");
+            if (t == false){
+                return false;
+            } else {
+                $.post("__SITE__/admin/admin/delMore",
+                        {id:id},
+                        function(data){
+                            alert('删除成功');
+                            window.location.href = "__SITE__/admin/admin/reserve";
+                        },
+                        "json");
+            }
+        } 
+        // else {
+            alert("请选择您要删除的内容!");
+                return false;
+        // }
+      }
+
+</script>
+</body></html>

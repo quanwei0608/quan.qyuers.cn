@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>友情链接</title>  
+    <link rel="stylesheet" href="__STATICS__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATICS__/css/admin.css">
+    <script src="__STATICS__/js/jquery.js"></script>
+    <script src="__STATICS__/js/pintuer.js"></script>  
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder"> 友情链接</strong></div>
+  <div class="padding border-bottom">  
+  <a class="button border-yellow" href=""><span class="icon-plus-square-o"></span> 添加链接</a>
+  </div> 
+  <table class="table table-hover text-center">
+    <tr>
+      <th width="5%">ID</th> 
+      <th>显示顺序</th>    
+      <th>站点名称</th>  
+      <th>站点URL</th>     
+      <th width="250">操作</th>
+    </tr>
+   
+   {foreach $blogroll as $val}
+    <tr data-id="{$val.lid}">
+      <td name="id">{$val.lid}</td>      
+      <td><input type="text"  value="{$val.dispalyorder}" name="dispalyorder"></td>  
+      <td><input type="text" value="{$val.link_name}" name="link_name"></td>
+      <td><input type="text"  value="{$val.address}" name="address"></td>      
+      <td>
+      <div class="button-group">
+        <a type="button" class="button border-main btn-edit" href="javascript:void(0)" ><span class="icon-edit" id="btn"></span>修改</a>
+        <a class="button border-red" href="javascript:void(0)" onclick="return del('{$val.lid}')"><span class="icon-trash-o"></span> 删除</a>
+      </div>
+      </td>
+    </tr>  
+    {/foreach}
+    
+    
+  </table>
+</div>
+<script type="text/javascript">
+//删除
+function del(id){
+  var i = confirm("您确定要删除吗");
+  if(i == false ){
+    return false;
+  }else{
+     $.post('__SITE__/leader/siteinfo/delLink',{id:id},function(data){
+                if(data.status) {
+                  alert(data.msg);
+                 $(this).parents("td").remove();
+                 window.location.href = "__SITE__/leader/siteinfo/blogroll";
+                  return true;
+                }else{
+                  alert(data.msg);
+                  return false;
+                }
+              },'json')
+  }
+}
+//修改
+//
+/*
+function update(id){
+
+
+     var j = confirm("您确定要修改吗");
+  if(j == false ){
+    return false;
+  }else{
+   var sss1;
+   var sss2;
+   var sss3;
+   var sss4;
+   $("tr").each(function(){
+    sss1 = $(this).find("#dispalyorder").val();
+    sss2 = $(this).find("#link_name").val();
+    sss3 = $(this).find("#address").val();
+    sss4 = $(this).find('#lid').html();
+  })
+
+
+     $.post('__SITE__/leader/siteinfo/updateLink',{id:sss4,dispalyorder:sss1,link_name: sss2,address:sss3},function(data){
+                if(data.status) {
+                  alert(data.msg);
+                 $(this).parents("td").remove();
+                 window.location.href = "__SITE__/leader/siteinfo/blogroll";
+                  return true;
+                }else{
+                  alert(data.msg);
+                  return false;
+                }
+              },'json')
+  }
+}
+*/
+$('.btn-edit').click(function(){
+  var j = confirm("您确定要修改吗");
+  if(j == false ){
+    return false;
+  }else{
+      var tr = $(this).parent().parent().parent();
+      var data ={
+        id:tr.attr('data-id'),
+        dispalyorder:tr.find('input[name=dispalyorder]').val(),
+        link_name:tr.find('input[name=link_name]').val(),
+        address:tr.find('input[name=address]').val(),
+      }
+        
+
+         $.post('__SITE__/leader/siteinfo/updateLink',data,function(data){
+                if(data.status) {
+                  alert(data.msg);
+                 // $(this).parents("td").remove();
+                 window.location.href = "__SITE__/leader/siteinfo/blogroll";
+                  return true;
+                }else{
+                  alert(data.msg);
+                  return false;
+                }
+              },'json')
+}
+});
+
+</script>
+
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add">
+  <strong><span class="icon-pencil-square-o"></span>增加新链接</strong>
+  </div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="">   
+      <input type="hidden" name="id"  value="" />  
+     
+   <table class="table table-hover text-center">
+    <tr>
+      <th>显示顺序</th>    
+      <th>站点名称</th>  
+      <th>站点URL</th>     
+      <th width="250">操作</th>
+    </tr>
+   <tr class="sss">    
+      <td><input type="text"  value="" name="dispalyorder"></td>  
+      <td><input type="text" value="" name="link_name"></td>
+      <td><input type="text"  value="" name="address"></td>      
+      <td>
+      <div class="button-group">
+        <a type="button" class="button border-green btn-edit" id="btns" href="javascript:void(0)" ><span class="icon-edit" id="btns"></span>增加</a>
+      </div>
+      </td>
+    </tr>  
+  </table>
+  </div>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">
+$("#btns").click(function(){
+  var x = confirm("您确定要增加吗");
+  if(x == false ){
+    return false;
+  }else{
+    var dispalyorder;
+    var link_name;
+    var address;
+     dispalyorder = $(".sss").find('input[name=dispalyorder]').val();
+     link_name = $(".sss").find('input[name=link_name]').val();
+     address = $(".sss").find('input[name=address]').val();
+    
+     $.post('__SITE__/leader/siteinfo/addLinks',{dispalyorder:dispalyorder,link_name:link_name,address:address},function(data){
+                if(data.status) {
+                  alert(data.msg);
+                 // $(this).parents("td").remove();
+                 window.location.href = "__SITE__/leader/siteinfo/blogroll";
+                  return true;
+                }else{
+                  alert(data.msg);
+                  return false;
+                }
+              },'json')
+  }
+});
+</script>
+</body>
+</html>

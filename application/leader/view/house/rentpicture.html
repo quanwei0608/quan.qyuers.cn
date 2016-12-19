@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="__STATICS__/css/pintuer.css">
+  <link rel="stylesheet" href="__STATICS__/css/admin.css">
+  
+  <script type="text/javascript" src="__STATICS__/js/jquery-1.11.3.js"></script>
+
+</head>
+<body>
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span>出租房照片</strong></div>
+    <div class="body-content">
+      <form method="post" class="form-x" action="__SITE__/leader/house/uploadRent" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="{$_GET['id']}">
+       <div class="form-group">
+          <div class="label">
+            <label  for="sitename">选择照片：</label>
+          </div>
+          <input type="file" name="image[]" /> </br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="file" name="image[]" /> <br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="file" name="image[]" /> <br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="file" name="image[]" /> <br></br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="submit" value="上传" />
+        </div>
+
+       
+      </form>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>经纪人注册</title>  
+    <link rel="stylesheet" href="__STATICS__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATICS__/css/admin.css">
+    <script src="__STATICS__/js/jquery.js"></script>
+    <script src="__STATICS__/js/pintuer.js"></script> 
+    <script type="text/javascript">
+      $(function(){
+          //验证用户名是否存在
+          
+        
+          $("#username").blur(function(){
+              $.post('__SITE__/leader/broker/authentication',{username:$('#username').val()},function($data){
+                  if ($data.status){
+
+                       $('#username').next().html('<font color="green"></font>');
+                  }else{
+                      $('#username').next().html('<font color="red">用户名已经存在</font>');
+                  }
+              },'json')
+          });
+      });
+
+    </script> 
+</head>
+<body>
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 经纪人注册</strong></div>
+    <div class="body-content">
+    <form method="post" class="form-x" action="__SITE__/leader/broker/register">
+        <div class="form-group">
+        </div>      
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">姓名：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="mpass" name="name" size="50" />    
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">编号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="mpass" name="number" size="50" />    
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">性别：</label>
+        </div>
+        <div class="field">
+          <div class="label">
+          <label for="sitename">
+            女<input type="radio" name="sex" value="0">
+            男<input type="radio" name="sex" value="1">
+          </label>
+          </div>
+            
+        </div>
+      </div>
+     
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">手机号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="mpass" name="phone" size="50" />    
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">邮箱：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="mpass" name="email" size="50" />    
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">大区：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="mpass" name="b_location" size="50" />    
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">小区域：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="mpass" name="  s_location" size="50" />    
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">门店编号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="mpass" name="com_num" size="50" />    
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">用户名：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="username" name="username" size="50" />&nbsp;&nbsp;&nbsp;&nbsp;<span style="display:block; float:left; width:150px; margin-top:10px; margin-left:10px;"></span>      
+        </div>
+      </div>        
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">请输入密码：</label>
+        </div>
+        <div class="field">
+          <input type="password" class="input w50" name="password" id="newpass" size="50" placeholder="请输入密码" data-validate="required:请输入新密码,length#>=5:密码不符合要求" />&nbsp;&nbsp;&nbsp;&nbsp;<span style="display:block; float:left; width:150px; margin-top:10px; margin-left:10px;"></span>         
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">确认密码：</label>
+        </div>
+        <div class="field">
+          <input type="password" class="input w50" id="repassword" name="renewpass" size="50" placeholder="请再次输入密码" data-validate="required:请再次输入新密码,repeat#password:两次输入的密码不一致" />    &nbsp;&nbsp;&nbsp;&nbsp;<span style="display:block; float:left; width:150px; margin-top:10px; margin-left:10px;"></span>      
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit" id="btn"> 提交</button>   
+        </div>
+      </div>      
+    </form>
+  </div>
+</div>
+</body>
+</html>

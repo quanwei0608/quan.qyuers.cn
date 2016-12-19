@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>修改经纪人信息</title>  
+    <link rel="stylesheet" href="__STATICS__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATICS__/css/admin.css">
+    <script src="__STATICS__/js/jquery.js"></script>
+    <script src="__STATICS__/js/pintuer.js"></script> 
+</head>
+<body>
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong><span class="icon-key"></span> 修改经纪人信息</strong></div>
+    <div class="body-content">
+    <form method="post" class="form-x" action="__SITE__/leader/broker/changes">
+     <input type="hidden" name="id" value="{$_GET['id']}">
+    
+        <div class="form-group">
+        </div>     
+     {foreach $select as $val} 
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">编号：</label>
+        </div>
+        <div class="field">
+          {$_GET['id']}
+        </div>
+      </div>
+   
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">卖房数量：</label>
+        </div>
+        <div class="field">
+          <input type="text" value="{$val.e_num}"  class="input w50" id="mpass" name="e_num" size="50" />    
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">出租数量：</label>
+        </div>
+        <div class="field">
+          <input type="text" value="{$val.r_num}" class="input w50" id="mpass" name="r_num" size="50" />    
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">工作年限：</label>
+        </div>
+        <div class="field">
+          <input type="text" value="{$val.w_year}" class="input w50" id="mpass" name="w_year" size="50" />    
+        </div>
+      </div>
+  {/foreach}
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit" id="btn"> 提交</button>   
+        </div>
+      </div>      
+    </form>
+  </div>
+</div>
+</body>
+</html>

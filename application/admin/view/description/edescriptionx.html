@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+<link rel="stylesheet" href="__STATIC__/css/admin.css">
+<script src="__STATIC__/js/jquery.js"></script>
+<script src="__STATIC__/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel margin-top" id="add">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 二手房源修改描述</strong></div>
+    <div class="body-content">
+      <form method="post" class="form-x" action="__SITE__/admin/Description/doE">   
+      <input type="hidden" name="id" value="{$_GET['id']}">   
+        <div class="form-group">
+        <div style="color:tomato">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 房源编号：{$_GET['id']}</div>
+          <div class="label">
+            <label>重新描述：</label>
+          </div>
+          <div class="field">
+            <textarea type="text" class="input" name="note" style="height:120px;" value=""></textarea>
+            <div class="tips"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label">
+            <label></label>
+          </div>
+          <div class="field">
+            <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body></html>
